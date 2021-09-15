@@ -6,7 +6,7 @@ public class LZWTest {
 
 	public static void main(String[] args) throws IOException {
 		
-		Decompressor hi = new Decompressor(9,"boi.txt");
+		Decompressor hi = new Decompressor(9,"1.txt");
 		Lzw lzw = new Lzw();
 		String input = "aababab";
 		List<Integer> results = lzw.compress(input);

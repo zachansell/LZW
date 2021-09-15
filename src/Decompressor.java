@@ -27,7 +27,7 @@ public class Decompressor {
 		{
 			int indivbyte = boi & 0xff;
 			
-			System.out.println(indivbyte);
+			//System.out.println(indivbyte);
 			//System.out.println(Integer.toBinaryString(boi));
 			String binarystring = Integer.toBinaryString(indivbyte);
 			
@@ -58,14 +58,33 @@ public class Decompressor {
 		
 		System.out.println(indexlist);
 		//begin decompression algorithm
-		int current=-1;
+		int newestindex = 127;
+		int current = indexlist.get(0);
 		int next = -1;
+		StringBuffer buffer = new StringBuffer();
 		for(int a=0;a<indexlist.size()-1;a++)
 		{
-			current = indexlist.get(a);
+			String currentstr = dict.get(current);
 			next = indexlist.get(a+1);
 			//assumes no null shenanigans
 			
+			if(dict.containsKey(next))
+			{
+				
+				String nextstr = dict.get(next);
+				dict.put(newestindex,currentstr+nextstr.charAt(0));
+				
+				newestindex++;
+			}
+			else {
+				
+				dict.put(newestindex, currentstr+currentstr.charAt(0));
+				newestindex++;
+			}
+			current=next;
+			buffer.append(currentstr);
 		}
+		buffer.append(dict.get(current));
+		System.out.println(buffer.toString());
 	}
 }
