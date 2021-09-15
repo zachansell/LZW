@@ -66,6 +66,27 @@ public class Lzw {
 		return result.toString();
 	}
 
+	public String decode(List<Integer> compressedInput,int bitsize)
+	{
+		HashMap<Integer,String> dictionary = new HashMap();
+		for(char ch = 32;ch<=32+255;ch++)
+		{
+			dictionary.put((int) ch,""+ch);
+		}
+		
+		String word = "" + (char)(int)compressedInput.remove(0);
+		Integer current = 0;
+		Integer next = 0;
+		StringBuffer result = new StringBuffer(word);
+
+		for (int digit : compressedInput) {
+			next = digit;
+		}
+
+		//	        System.out.println(dictionary.toString());
+
+		return result.toString();
+	}
 	private Map<Integer,String> buildDictionaryForDecompression(int dictionarySize) {
 		Map<Integer,String> dictionary = new HashMap<Integer,String>();
 		for (int i = 0; i < dictionarySize; i++) {
