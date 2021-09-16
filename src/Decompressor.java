@@ -10,9 +10,10 @@ import java.util.HashMap;
 // this thing was made because the original code already had a decoder
 // it decode my stuff since original decodes itself 
 public class Decompressor {
+	HashMap<Integer,String>dict = new HashMap();
 	public Decompressor(int bytecount, String inputfile) throws IOException
 	{
-		HashMap<Integer,String>dict = new HashMap();
+		
 		for(char ch = 32;ch<=126;ch++)
 		{
 			dict.put((int) ch,""+ch);
@@ -64,10 +65,13 @@ public class Decompressor {
 		StringBuffer buffer = new StringBuffer();
 		for(int a=0;a<indexlist.size()-1;a++)
 		{
+			
 			String currentstr = dict.get(current);
+			//System.out.println(currentstr+" at "+current);
 			next = indexlist.get(a+1);
 			//assumes no null shenanigans
-			
+			//working on correcting null shenanigans
+			//how is there even a null shennaigans
 			if(dict.containsKey(next))
 			{
 				
@@ -75,19 +79,36 @@ public class Decompressor {
 				dict.put(newestindex,currentstr+nextstr.charAt(0));
 				
 				newestindex++;
+				current=next;
+				buffer.append(currentstr);
+			}
+			else if(currentstr !=null){
+				
+				//how did a null even pop up when it literally can'tmake any more IMPortantly how is there a ranndom
+				dict.put(newestindex, currentstr+currentstr.charAt(0));
+				//dictionarySpread();
+				newestindex++;
+				current=next;
+				buffer.append(currentstr);
 			}
 			else {
-				System.out.println(currentstr);
-				dict.put(newestindex, currentstr+currentstr.charAt(0));
-				newestindex++;
+				System.out.println("WHY NULLLLL "+current);
+				dict.put(newestindex,dict.get(newestindex-1)+dict.get(newestindex-1).charAt(0));
 			}
-			current=next;
-			buffer.append(currentstr);
+			
+			
 		}
 		buffer.append(dict.get(current));
 		FileWriter writer = new FileWriter("original_of_"+inputfile+".txt");
 		writer.write(buffer.toString());
 		writer.close();
 	
+	}
+	private void dictionarySpread()
+	{
+		for(Integer key:dict.keySet())
+		{
+			System.out.println("key "+key+" character "+dict.get(key));
+		}
 	}
 }

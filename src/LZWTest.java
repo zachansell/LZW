@@ -6,9 +6,9 @@ public class LZWTest {
 	public static void main(String[] args) throws IOException {
 		
 		//begin miyajima-code
-		Decompressor decomp = new Decompressor(9,"1.txt");
+		Decompressor decomp = new Decompressor(9,"2.txt");
 		//end miyajima code
-		Lzw lzw = new Lzw();
+		/*Lzw lzw = new Lzw();
 		String input = "aababab";
 		List<Integer> results = lzw.compress(input);
 		System.out.println(results);
@@ -44,7 +44,7 @@ public class LZWTest {
 		byte[] bigContentResultInBytes = fileUtility.convertToByteArray(compressedBigContent);
 		
 		fileUtility.writeBytesToFile(bigContentResultInBytes, "/Users/lanalim/eclipse-workspace/LZW/src/lzw-file3-output.lzw");
-
+*/
 
 
 	}
