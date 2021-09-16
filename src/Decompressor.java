@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -77,7 +78,7 @@ public class Decompressor {
 				newestindex++;
 			}
 			else {
-				
+				System.out.println(currentstr);
 				dict.put(newestindex, currentstr+currentstr.charAt(0));
 				newestindex++;
 			}
@@ -85,6 +86,9 @@ public class Decompressor {
 			buffer.append(currentstr);
 		}
 		buffer.append(dict.get(current));
-		System.out.println(buffer.toString());
+		FileWriter writer = new FileWriter("original_of_"+inputfile+".txt");
+		writer.write(buffer.toString());
+		writer.close();
+	
 	}
 }
