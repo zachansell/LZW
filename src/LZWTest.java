@@ -6,7 +6,7 @@ public class LZWTest {
 	public static void main(String[] args) throws IOException {
 		
 		//begin miyajima-code
-		Decompressor decomp = new Decompressor(9,"2.txt");
+		Decompressor decomp = new Decompressor(9,"3.txt");
 		//end miyajima code
 		/*Lzw lzw = new Lzw();
 		String input = "aababab";
