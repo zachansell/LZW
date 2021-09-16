@@ -1,84 +1,77 @@
-
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.ByteBuffer;
 import java.util.*;
 
 public class Lzw {
 
 	public static final int DEFAULT_DICTIONARY_SIZE = 256;
 
-	//modified for compliance with my code™
-	public List<Integer> compress(int bitcount,String input,String outputfile) throws IOException {
+
+	public List<Integer> compress(String input) {
 
 		int dictSize = DEFAULT_DICTIONARY_SIZE;
 		Map<String,Integer> dictionary = buildDictionaryForCompression(dictSize);
 
 		List<Integer> results = new ArrayList<Integer>();
-		
+
 		String word = "";
-		int index = 0;
 		for (char character : input.toCharArray()) {
-			
-			if(dictionary.containsKey(word+character))
-			{
-				word = word+character;
-
-			}
+			String wordCharacter = word + character;
+			if (dictionary.containsKey(wordCharacter))
+				word = wordCharacter;
 			else {
-
-
 				results.add(dictionary.get(word));
-				
-				//System.out.println("curr "+curr+" dict "+dict.get(curr));
-				if(index<Math.pow(2,bitcount)-dictSize) {
-					dictionary.put(word+character, dictSize+index);
-					
-				}
-				word=""+character;
-				index++;
-
+				dictionary.put(wordCharacter, dictSize++);
+				word = "" + character;
 			}
 		}
 
-		//make filewriter, initialize to have output with extension or just filename
-		FileOutputStream writer;
-		StringBuffer builder = new StringBuffer("");
-		if(outputfile.contains(".txt")){
-			writer= new FileOutputStream(outputfile);
-		}
-		else {
-			writer = new FileOutputStream(outputfile+".txt");
-		}
-		 
-		
-		for(int a=0;a<results.size();a++)
-		{
-
-			//next		System.out.println(st)
-			//System.out.println(stringyboi.get(a));
-			//WHAT IS THIS
-			if(!Objects.isNull(results.get(a)))
-			{
-				String binaryver = Integer.toBinaryString(results.get(a));
-				binaryver = String.format("%"+bitcount+"s",binaryver);
-				binaryver = binaryver.replaceAll(" ","0");
-				short number = Short.parseShort(binaryver, 2);
-				ByteBuffer bytebuf = ByteBuffer.allocate(2).putShort(number);
-
-				byte[] bytes = bytebuf.array();
-			//	byte[] bytes = new BigInteger(binaryver,2).toByteArray();
-				writer.write(bytes);
-			}
+		if (!word.equals("")) {
+			results.add(dictionary.get(word));
 		}
 
-		
-
-		writer.close();
 		return results;
 	}
 
+	public String decompress(List<Integer> compressedInput) {
+
+		int dictionarySize = DEFAULT_DICTIONARY_SIZE;
+		Map<Integer,String> dictionary = buildDictionaryForDecompression(dictionarySize);
+
+		String word = "" + (char)(int)compressedInput.remove(0);
+
+		StringBuffer result = new StringBuffer(word);
+
+		for (int digit : compressedInput) {
+			String entry;
+
+			if (dictionary.containsKey(digit)) {
+				entry =  dictionary.get(digit);
+			}
+			else if (digit == dictionarySize) {
+				entry = word + word.charAt(0);
+			} 
+			else {
+				throw new IllegalArgumentException("Bad compressed digit: " + digit);
+			}
+
+			result.append(entry);
+
+			dictionary.put(dictionarySize++, word + entry.charAt(0));
+
+			word = entry;
+		}
+
+		//	        System.out.println(dictionary.toString());
+
+		return result.toString();
+	}
+
+	private Map<Integer,String> buildDictionaryForDecompression(int dictionarySize) {
+		Map<Integer,String> dictionary = new HashMap<Integer,String>();
+		for (int i = 0; i < dictionarySize; i++) {
+			dictionary.put(i, "" + (char)i);
+		}
+		return dictionary;
+	}
 
 	private Map<String,Integer> buildDictionaryForCompression(int dictionarySize) {
 		Map<String,Integer> dictionary = new HashMap<String,Integer>();

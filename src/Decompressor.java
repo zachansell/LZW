@@ -7,9 +7,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-//this boi reads in bytes (bytecount) bytes at a time in order to go through de-ctionairy process
-// and then we go brr, c, n, c+1st of next, add c+1st of next to dict
-// if n not exist, add another entry, most recent entry + 1st byte from most recent
+// this thing was made because the original code already had a decoder
+// it decode my stuff since original decodes itself 
 public class Decompressor {
 	public Decompressor(int bytecount, String inputfile) throws IOException
 	{
