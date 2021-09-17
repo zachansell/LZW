@@ -92,7 +92,7 @@ public class Decompressor {
 				buffer.append(currentstr);
 			}
 			else {
-				System.out.println("WHY NULLLLL "+current);
+				//trash code
 				dict.put(newestindex,dict.get(newestindex-1)+dict.get(newestindex-1).charAt(0));
 			}
 			
