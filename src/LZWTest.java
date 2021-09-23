@@ -54,7 +54,8 @@ public class LZWTest {
 
 
 		System.out.println("Total time in milliseconds spent: "+(System.currentTimeMillis()-startTime));
-		//
+		//Note: Original time = 246ms (first time it was run)
+		//Time after optimizations: ~80ms on average
 	}
 
 }
