@@ -5,7 +5,7 @@ import java.util.List;
 public class LZWTest {
 
 	public static void main(String[] args) throws IOException {
-
+		long startTime = System.currentTimeMillis();
 		Lzw lzw = new Lzw();
 		String input = "aababab";
 		List<Integer> results = lzw.compress(input);
@@ -52,7 +52,7 @@ public class LZWTest {
 		System.out.println(decompressContent);
 
 
-
+		System.out.println("Total time in milliseconds spent: "+(System.currentTimeMillis()-startTime));
 	}
 
 }
