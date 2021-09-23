@@ -7,7 +7,7 @@ public class LZWTest {
 	public static void main(String[] args) throws IOException {
 		long startTime = System.currentTimeMillis();
 		Lzw lzw = new Lzw();
-		String input = "aababab";
+		String input = "aababab";//Testing with basic string
 		List<Integer> results = lzw.compress(input);
 		System.out.println(results);
 		String output = lzw.decompress(results);
@@ -33,7 +33,7 @@ public class LZWTest {
 
 		String  decompressContent = lzw.decompress(compressedDataFromFile);
 
-		System.out.println(decompressContent);
+		System.out.println("Decompressed Content: "+decompressContent);
 
 
 		// testing with a bigger file

@@ -59,8 +59,8 @@ public class FileUtility {
 
 	public List<Integer> convertToIntegerList(String compressedContent) {
 		 List<Integer> results = new ArrayList<Integer>();
-		 
-		 if(compressedContent == null && "".equals(compressedContent) || !compressedContent.contains(",")) {
+		 //testing for empty string
+		 if(compressedContent == null || "".equals(compressedContent) || !compressedContent.contains(",")) {
 			 System.out.println("Empty content");
 			 return results;
 		 }
