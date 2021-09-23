@@ -30,10 +30,10 @@ public class FileUtility {
 			br.close();
 			return fileContentInString.toString();
 		} catch (FileNotFoundException e) {
-			System.out.print(String.format(" Cannot find the file: %s", fileName));
+			System.out.print(String.format("Unfortunately, this file could not be found: ", fileName));
 			e.printStackTrace();
 		} catch (IOException e) {
-			System.out.print(String.format(" Cannot read the file: %s", fileName));
+			System.out.print(String.format("Unfortunately, this file could not be read: ", fileName));
 		}
 		br.close();
 		return "";
@@ -55,7 +55,7 @@ public class FileUtility {
 			outputStream.write(resultInBytes);
 			outputStream.close();
 		} catch (IOException e) {
-			System.out.print(String.format(" Cannot read the file: %s", fileName));
+			System.out.print(String.format("Unfortunately, this file could not be read: ", fileName));
 		}
 	}
 

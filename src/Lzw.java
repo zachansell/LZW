@@ -52,7 +52,7 @@ public class Lzw {
 				entry = word + word.charAt(0);
 			} 
 			else {
-				throw new IllegalArgumentException("Bad compressed digit: " + digit +". Expected values at this time should be between 1 and "+dictionarySize);
+				throw new IllegalArgumentException("We're sorry, but " + digit +" couldn't be decompressed at this stage. Expected values at this time should be between 1 and "+dictionarySize +". Please try again.");
 			}
 
 			result.append(entry);
