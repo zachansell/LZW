@@ -14,10 +14,10 @@ public class FileUtility {
 
 	public FileUtility() {}
 
-	public String readTextFile(String fileName) {
+	public String readTextFile(String fileName) throws IOException {
 		File file = new File(fileName);
 
-		BufferedReader br;
+		BufferedReader br = null;
 		try {
 			br = new BufferedReader(new FileReader(file));
 
@@ -35,6 +35,7 @@ public class FileUtility {
 		} catch (IOException e) {
 			System.out.print(String.format(" Cannot read the file: %s", fileName));
 		}
+		br.close();
 		return "";
 
 	}
@@ -52,6 +53,7 @@ public class FileUtility {
 		File outputFile =  new File(fileName);
 		try (FileOutputStream outputStream = new FileOutputStream(outputFile)) {
 			outputStream.write(resultInBytes);
+			outputStream.close();
 		} catch (IOException e) {
 			System.out.print(String.format(" Cannot read the file: %s", fileName));
 		}

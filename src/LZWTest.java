@@ -12,7 +12,8 @@ public class LZWTest {
 		System.out.println(results);
 		String output = lzw.decompress(results);
 		System.out.println("input and output should be equal! " + input.equals(output));
-
+		
+		//testing first file
 		FileUtility fileUtility = new FileUtility();
 		String fileContent = fileUtility.readTextFile("./src/lzw-file1.txt");
 		System.out.println(" file content: " + fileContent);
@@ -29,7 +30,7 @@ public class LZWTest {
 
 		List<Integer> compressedDataFromFile = fileUtility.convertToIntegerList(compressedContent);
 
-		System.out.println("compress data file: " + compressedDataFromFile);
+		System.out.println("compressed data file: " + compressedDataFromFile);
 
 		String  decompressContent = lzw.decompress(compressedDataFromFile);
 
@@ -42,7 +43,7 @@ public class LZWTest {
 		byte[] bigContentResultInBytes = fileUtility.convertToByteArray(compressedBigContent);
 
 		fileUtility.writeBytesToFile(bigContentResultInBytes, "./src/lzw-file3-output.lzw");
-		//decompress and write to file: 
+		//decompressing and write to file: 
 		compressedContent = fileUtility.readTextFile("./src/lzw-file3-output.lzw");
 		compressedDataFromFile = fileUtility.convertToIntegerList(compressedContent);
 		decompressContent = lzw.decompress(compressedDataFromFile);
@@ -53,6 +54,7 @@ public class LZWTest {
 
 
 		System.out.println("Total time in milliseconds spent: "+(System.currentTimeMillis()-startTime));
+		//
 	}
 
 }
