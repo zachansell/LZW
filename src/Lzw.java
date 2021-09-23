@@ -10,7 +10,7 @@ public class Lzw {
 	public List<Integer> compress(String input) {
 
 		int dictSize = DEFAULT_DICTIONARY_SIZE;
-		Map<String,Integer> dictionary = buildDictionaryForCompression(dictSize);
+		Map<String,Integer> dictionary = buildDictionaryForCompression();
 
 		List<Integer> results = new ArrayList<Integer>();
 
@@ -36,7 +36,7 @@ public class Lzw {
 	public String decompress(List<Integer> compressedInput) throws FileNotFoundException {
 
 		int dictionarySize = DEFAULT_DICTIONARY_SIZE;
-		Map<Integer,String> dictionary = buildDictionaryForDecompression(dictionarySize);
+		Map<Integer,String> dictionary = buildDictionaryForDecompression();
 
 		String word = "" + (char)(int)compressedInput.remove(0);
 
@@ -52,7 +52,7 @@ public class Lzw {
 				entry = word + word.charAt(0);
 			} 
 			else {
-				throw new IllegalArgumentException("Bad compressed digit: " + digit);
+				throw new IllegalArgumentException("Bad compressed digit: " + digit +". Expected values at this time should be between 1 and "+dictionarySize);
 			}
 
 			result.append(entry);
@@ -72,17 +72,17 @@ public class Lzw {
 		return result.toString();
 	}
 
-	private Map<Integer,String> buildDictionaryForDecompression(int dictionarySize) {
+	private Map<Integer,String> buildDictionaryForDecompression() {
 		Map<Integer,String> dictionary = new HashMap<Integer,String>();
-		for (int i = 0; i < dictionarySize; i++) {
+		for (int i = 0; i < DEFAULT_DICTIONARY_SIZE; i++) {
 			dictionary.put(i, "" + (char)i);
 		}
 		return dictionary;
 	}
 
-	private Map<String,Integer> buildDictionaryForCompression(int dictionarySize) {
+	private Map<String,Integer> buildDictionaryForCompression() {
 		Map<String,Integer> dictionary = new HashMap<String,Integer>();
-		for (int i = 0; i < dictionarySize; i++) {
+		for (int i = 0; i < DEFAULT_DICTIONARY_SIZE; i++) {
 			dictionary.put("" + (char)i, i);
 		}
 		return dictionary;
