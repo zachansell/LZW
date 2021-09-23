@@ -48,7 +48,7 @@ public class LZWTest {
 		decompressContent = lzw.decompress(compressedDataFromFile);
 		PrintWriter writer = new PrintWriter("./src/lzw-file3-output-decoded.txt");
 		writer.print(decompressContent);
-		writer.close();
+		writer.close(); 
 		System.out.println(decompressContent);
 
 

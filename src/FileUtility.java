@@ -23,7 +23,7 @@ public class FileUtility {
 
 
 			StringBuilder fileContentInString = new StringBuilder();
-			String lineInString = "";
+			String lineInString;
 			while ((lineInString = br.readLine()) != null) {
 				fileContentInString.append(lineInString);
 			}
